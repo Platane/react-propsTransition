@@ -35,6 +35,8 @@
   },
 
   "scripts" : {
+    "build"                     : "babel --out-dir ./lib --ignore */__tests__/* ./src",
+
     "test:style"                : "standard",
     "test"                      : "jest"
   }
