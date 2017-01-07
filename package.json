@@ -1,8 +1,14 @@
 {
   "name"                          : "react-propstransition",
-  "version"                       : "1.0.0",
+  "version"                       : "1.0.1",
   "description"                   : "Makes transition animation simple.",
   "repository"                    : "https://github.com/Platane/react-propsTransition",
+
+  "main"                          : "lib/index.js",
+
+  "files": [
+    "lib/"
+  ],
 
   "dependencies" : {
   },
@@ -31,7 +37,7 @@
   },
 
   "jest" : {
-    "verbose"                   : true,
+
     "collectCoverage"           : true
   },
 

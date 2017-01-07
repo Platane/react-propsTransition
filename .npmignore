@@ -1,0 +1,8 @@
+/.*
+/wercker.yml
+
+/coverage/
+/src/
+/jest/
+
+__tests__

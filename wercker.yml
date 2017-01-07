@@ -14,17 +14,18 @@ build:
       code: npm outdated --quiet
 
     - script:
-      name: build
-      code: npm run build
-
-    - script:
       name: test
       code: |
         npm run test:style
         npm run test
+        npm run build
 
 publish-npm:
   steps:
+    - script:
+      name: build
+      code: npm run build
+
     - turistforeningen/npm-publish:
       # need NPM_TOKEN env var set
       name: publish to npm
