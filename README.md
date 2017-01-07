@@ -1,6 +1,10 @@
 react-propsTransition
 ===
 
+[![wercker status](https://app.wercker.com/status/390b3b425f0799a5084092760048901a/s/master "wercker status")](https://app.wercker.com/project/byKey/390b3b425f0799a5084092760048901a)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![npm](https://img.shields.io/npm/v/react-propstransition.svg)](https://www.npmjs.com/package/react-propstransition)
+
 Declare a property to transition. Whenever this props change, the component render is called with ( previous, next ) so you can hook whatever animation.
 
 ```
@@ -19,6 +23,8 @@ Declare a property to transition. Whenever this props change, the component rend
 # Usage
 
 ```javascript
+
+import {Transitioned} from 'react-propsTransition'
 
 const Component = ({ value }) =>
   <Transitioned toTransition={value} delay={300}>
