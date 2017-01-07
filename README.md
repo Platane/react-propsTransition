@@ -21,16 +21,16 @@ Declare a property to transition. Whenever this props change, the component rend
 ```javascript
 
 const Component = ({ value }) =>
-    <Transitioned toTransition={ value } delay={300}>
-        {
-            ({ next, previous, transition }) =>
-                <span>{ 
-                    transition
-                        ? `The value was ${ previous }, it will be ${ next }`
-                        : `The value is ${ next }`
-                }</span>
-        }
-    </Transitioned>
+  <Transitioned toTransition={value} delay={300}>
+    {
+      ({ next, previous, transition }) =>
+        <span>{
+          transition
+            ? `The value was ${previous}, it will be ${next}`
+            : `The value is ${next}`
+        }</span>
+    }
+  </Transitioned>
 
 ```
 
@@ -69,14 +69,14 @@ Animate the fadeIn, fadeOff of a drawer
 ```javascript
 
 const Drawer = ({ opened }) =>
-    <Transitioned toTransition={ opened } delay={300}>
-        {
-            ({ next, previous, transition }) =>
-                ( next || previous ) &&
-                    <div className={ 'drawer'+( transition ? ( next ? 'drawer--fadeIn' : 'drawer--fadeOut' ) ) }>
-                        <Content>
-                    </div>
-        }
-    </Transitioned>
+  <Transitioned toTransition={opened} delay={300}>
+    {
+      ({ next, previous, transition }) =>
+        (next || previous) &&
+          <div className={'drawer' + (transition ? (next ? 'drawer--fadeIn' : 'drawer--fadeOut') : '')}>
+            <Content />
+          </div>
+    }
+  </Transitioned>
 
 ```
