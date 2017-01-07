@@ -36,62 +36,59 @@ import React from 'react'
 
 class Transitioned extends React.Component {
 
-    constructor( props ){
-        super( props )
+  constructor (props) {
+    super(props)
 
-        this.state  = { transition:false, next: this.props.toTransition }
-        this.cancel = null
+    this.state = { transition: false, next: this.props.toTransition }
+    this.cancel = null
 
-        this.fadeOff = this.fadeOff.bind( this )
+    this.fadeOff = this.fadeOff.bind(this)
+  }
+
+  fadeOff () {
+    clearTimeout(this.cancel)
+
+    this.setState({ previous: null, transition: false })
+  }
+
+  _equal (a, b) {
+    return this.props.equal
+      ? !a === !b && (!a || this.props.equal(a, b))
+      : a === b
+  }
+  _delay () {
+    return this.props.delay || 5000
+  }
+
+  componentWillReceiveProps (nextProps) {
+    clearTimeout(this.cancel)
+
+    const next = nextProps.toTransition
+    const previous = this.state.next
+
+    if (!this._equal(previous, next)) {
+      this.setState({ next, previous, transition: true, transitionIndirect: false, indirectNext: null })
+
+      this.cancel = setTimeout(this.fadeOff, this._delay())
     }
+  }
 
-    fadeOff(){
-        
-        clearTimeout( this.cancel )
+  componentWillUnmount () {
+    clearTimeout(this.cancel)
+  }
 
-        this.setState({ previous: null, transition:false })
-    }
-
-    _equal( a, b ){
-        return this.props.equal
-            ? !a == !b && ( !a || this.props.equal( a, b ) )
-            : a == b
-    }
-    _delay(){
-        return this.props.delay || 5000
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        clearTimeout( this.cancel )
-
-        const next      = nextProps.toTransition
-        const previous  = this.state.next
-
-        if ( !this._equal( previous, next ) ){
-
-            this.setState({ next, previous, transition:true,    transitionIndirect:false, indirectNext:null })
-
-            this.cancel = setTimeout( this.fadeOff, this._delay() )
-        }
-    }
-
-    componentWillUnmount(){
-        clearTimeout( this.cancel )
-    }
-
-    render(){
-        const renderedChildren = this.props.children( this.state )
-        return renderedChildren && React.Children.only(renderedChildren) || null
-    }
+  render () {
+    const renderedChildren = this.props.children(this.state)
+    return renderedChildren && React.Children.only(renderedChildren) || null
+  }
 }
 
 const {PropTypes} = React
 
 Transitioned.propTypes = {
-    toTransition    : PropTypes.any,
-    equal           : PropTypes.func,
-    delay           : PropTypes.number,
+  toTransition: PropTypes.any,
+  equal: PropTypes.func,
+  delay: PropTypes.number
 }
 
 export default Transitioned

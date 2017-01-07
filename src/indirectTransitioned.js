@@ -1,5 +1,3 @@
-import React from 'react'
-
 /**
  * same as transition, expect
  * with the option indirect, the Flow diagram looks like
@@ -24,48 +22,39 @@ import Transitioned from './transitioned'
 
 class IndirectTransitioned extends Transitioned {
 
-    constructor( props ){
-        super( props )
+  fadeOff () {
+    clearTimeout(this.cancel)
+
+    if (this.state.indirectNext) {
+      this.setState({ previous: null, next: this.state.indirectNext, indirectNext: null, transitionIndirect: false })
+
+      this.cancel = setTimeout(this.fadeOff, this._delay())
+    } else {
+      this.setState({ previous: null, transition: false, indirectNext: null, transitionIndirect: false })
     }
+  }
 
-    fadeOff(){
-        
-        clearTimeout( this.cancel )
+  componentWillReceiveProps (nextProps) {
+    clearTimeout(this.cancel)
 
-        if( this.state.indirectNext ) {
+    const next = nextProps.toTransition
+    const previous = this.state.next
 
-            this.setState({ previous: null, next:this.state.indirectNext, indirectNext:null, transitionIndirect: false })
+    if (!this._equal(previous, next) && (!this.state.transitionIndirect || !this._equal(this.state.indirectNext, next))) {
+      if (!previous || !next) {
+        this.setState({ next, previous, transition: true, transitionIndirect: false, indirectNext: null })
+      } else {
+        this.setState({ next: null, previous, transition: true, transitionIndirect: true, indirectNext: next })
+      }
 
-            this.cancel = setTimeout( this.fadeOff, this._delay() )
-
-        } else
-            this.setState({ previous: null, transition:false, indirectNext:null, transitionIndirect:false })
-
+      this.cancel = setTimeout(this.fadeOff, this._delay())
     }
-
-    componentWillReceiveProps(nextProps) {
-
-        clearTimeout( this.cancel )
-
-        const next          = nextProps.toTransition
-        const previous      = this.state.next
-
-        if ( !this._equal( previous, next ) && ( !this.state.transitionIndirect || !this._equal( this.state.indirectNext, next ) ) ){
-
-            if ( !previous || !next )
-                this.setState({ next, previous, transition:true,    transitionIndirect:false, indirectNext:null })
-
-            else
-                this.setState({ next:null, previous, transition:true,  transitionIndirect:true, indirectNext:next })
-
-            this.cancel = setTimeout( this.fadeOff, this._delay() )
-        }
-    }
+  }
 
 }
 
 IndirectTransitioned.propTypes = {
-    ...Transitioned.propTypes,
+  ...Transitioned.propTypes
 }
 
 export default IndirectTransitioned
