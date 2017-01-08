@@ -1,6 +1,6 @@
 {
   "name"                          : "react-propstransition",
-  "version"                       : "1.0.0",
+  "version"                       : "2.0.0",
   "description"                   : "Makes transition animation simple.",
   "repository"                    : "https://github.com/Platane/react-propsTransition",
 
