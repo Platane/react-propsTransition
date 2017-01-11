@@ -48,6 +48,8 @@ class IndirectTransitioned extends Transitioned {
       }
 
       this.cancel = setTimeout(this.fadeOff, this._delay())
+    } else {
+      this.setState({ next })
     }
   }
 

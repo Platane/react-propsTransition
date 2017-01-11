@@ -1,14 +1,14 @@
 import React from 'react'
-import IndirectTransitioned from '../indirectTransitioned'
+import {IndirectTransition} from '../index'
 import renderer from 'react-test-renderer'
 
 const DumbComponent = props =>
-  <IndirectTransitioned toTransition={props.a} delay={500} equal={(u, v) => u[1] === v[1]}>
+  <IndirectTransition toTransition={props.a} delay={500} equal={(u, v) => u[1] === v[1]}>
     {
       ({ next, previous, transition }) =>
         <div {...props}>{`b is ${props.b}; ` + (!transition ? `a is ${next}` : `a transition from ${previous} to ${next}`)}</div>
     }
-  </IndirectTransitioned>
+  </IndirectTransition>
 
 class Component extends React.Component {
 
@@ -31,7 +31,7 @@ describe('indirectTransitioned component', () => {
     })
   })
 
-  describe('set props not marked as to transition', () => {
+  describe('set props not marked as "to transition"', () => {
     it('should render without transition', () => {
       const component = renderer.create(<Component a={'A1'} b={'B1'} />)
       let tree = component.toJSON()
@@ -43,7 +43,7 @@ describe('indirectTransitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition', () => {
+  describe('set props marked as "to transition"', () => {
     it('should render with transition', () => {
       jest.useFakeTimers()
 
@@ -71,7 +71,7 @@ describe('indirectTransitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition to the same value', () => {
+  describe('set props marked as "to transition" to the same value', () => {
     it('should render without transition', () => {
       jest.useFakeTimers()
 
@@ -86,7 +86,7 @@ describe('indirectTransitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition to a value equal to previous', () => {
+  describe('set props marked as "to transition" to a value equal to previous', () => {
     it('should render without transition', () => {
       jest.useFakeTimers()
 
@@ -96,12 +96,12 @@ describe('indirectTransitioned component', () => {
       // set a
       tree.props.setA('A1_')
       tree = component.toJSON()
-      expect(tree.children[0]).toEqual('b is B1; a is A1')
+      expect(tree.children[0]).toEqual('b is B1; a is A1_')
       expect(setTimeout.mock.calls.length).toBe(0)
     })
   })
 
-  describe('set props marked as to transition, set again during the transition to null', () => {
+  describe('set props marked as "to transition", set again during the transition to null', () => {
     it('should render with transition', () => {
       jest.useFakeTimers()
 
@@ -124,7 +124,7 @@ describe('indirectTransitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition, set again during the transition from null', () => {
+  describe('set props marked as "to transition", set again during the transition from null', () => {
     it('should render with transition', () => {
       jest.useFakeTimers()
 

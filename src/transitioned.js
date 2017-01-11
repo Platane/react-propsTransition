@@ -70,6 +70,8 @@ class Transitioned extends React.Component {
       this.setState({ next, previous, transition: true, transitionIndirect: false, indirectNext: null })
 
       this.cancel = setTimeout(this.fadeOff, this._delay())
+    } else {
+      this.setState({ next })
     }
   }
 

@@ -1,14 +1,14 @@
 import React from 'react'
-import Transitioned from '../transitioned'
+import {Transition} from '../index'
 import renderer from 'react-test-renderer'
 
 const DumbComponent = props =>
-  <Transitioned toTransition={props.a} delay={500} equal={(u, v) => u[1] === v[1]}>
+  <Transition toTransition={props.a} delay={500} equal={(u, v) => u[1] === v[1]}>
     {
       ({ next, previous, transition }) =>
         <div {...props}>{`b is ${props.b}; ` + (!transition ? `a is ${next}` : `a transition from ${previous} to ${next}`)}</div>
     }
-  </Transitioned>
+  </Transition>
 
 class Component extends React.Component {
 
@@ -23,7 +23,7 @@ class Component extends React.Component {
 }
 
 describe('transitioned component', () => {
-  describe('iitial render', () => {
+  describe('initial render', () => {
     it('should render without transition', () => {
       const component = renderer.create(<Component a={'A1'} b={'B1'} />)
       let tree = component.toJSON()
@@ -31,7 +31,7 @@ describe('transitioned component', () => {
     })
   })
 
-  describe('set props not marked as to transition', () => {
+  describe('set props not marked as "to transition"', () => {
     it('should render without transition', () => {
       const component = renderer.create(<Component a={'A1'} b={'B1'} />)
       let tree = component.toJSON()
@@ -43,7 +43,7 @@ describe('transitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition', () => {
+  describe('set props marked as "to transition"', () => {
     it('should render with transition', () => {
       jest.useFakeTimers()
 
@@ -65,7 +65,7 @@ describe('transitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition to the same value', () => {
+  describe('set props marked as "to transition" to the same value', () => {
     it('should render without transition', () => {
       jest.useFakeTimers()
 
@@ -80,7 +80,7 @@ describe('transitioned component', () => {
     })
   })
 
-  describe('set props marked as to transition to a value equal to previous', () => {
+  describe('set props marked as "to transition" to a value equal to previous', () => {
     it('should render without transition', () => {
       jest.useFakeTimers()
 
@@ -90,12 +90,12 @@ describe('transitioned component', () => {
       // set a
       tree.props.setA('A1_')
       tree = component.toJSON()
-      expect(tree.children[0]).toEqual('b is B1; a is A1')
+      expect(tree.children[0]).toEqual('b is B1; a is A1_')
       expect(setTimeout.mock.calls.length).toBe(0)
     })
   })
 
-  describe('set props marked as to transition, set again during the transition delay', () => {
+  describe('set props marked as "to transition", set again during the transition delay', () => {
     it('should render with transition', () => {
       jest.useFakeTimers()
 

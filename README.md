@@ -24,10 +24,10 @@ Declare a property to transition. Whenever this props change, the component rend
 
 ```javascript
 
-import {Transitioned} from 'react-propsTransition'
+import {Transition} from 'react-propsTransition'
 
 const Component = ({ value }) =>
-  <Transitioned toTransition={value} delay={300}>
+  <Transition toTransition={value} delay={300}>
     {
       ({ next, previous, transition }) =>
         <span>{
@@ -36,7 +36,7 @@ const Component = ({ value }) =>
             : `The value is ${next}`
         }</span>
     }
-  </Transitioned>
+  </Transition>
 
 ```
 
@@ -46,7 +46,7 @@ const Component = ({ value }) =>
 - _delay_           delay of the transition, in ms 
 - _equal_           check for value change, ( default is == )
 
-## IndirectTransitioned
+## IndirectTransition
 
 The indirect transition have the same api, but transition only from a value to null and from null to a value.
 
@@ -75,7 +75,7 @@ Animate the fadeIn, fadeOff of a drawer
 ```javascript
 
 const Drawer = ({ opened }) =>
-  <Transitioned toTransition={opened} delay={300}>
+  <Transition toTransition={opened} delay={300}>
     {
       ({ next, previous, transition }) =>
         (next || previous) &&
@@ -83,6 +83,6 @@ const Drawer = ({ opened }) =>
             <Content />
           </div>
     }
-  </Transitioned>
+  </Transition>
 
 ```
