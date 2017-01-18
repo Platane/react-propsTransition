@@ -1,6 +1,6 @@
 {
   "name"                          : "react-propstransition",
-  "version"                       : "2.0.1",
+  "version"                       : "2.0.2",
   "description"                   : "Makes transition animation simple.",
   "repository"                    : "https://github.com/Platane/react-propsTransition",
 
@@ -45,6 +45,6 @@
     "build"                     : "babel --out-dir ./lib --ignore __tests__ ./src",
 
     "test:style"                : "standard",
-    "test"                      : "jest"
+    "test"                      : "jest --verbose"
   }
 }

@@ -61,14 +61,13 @@ class Transitioned extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    clearTimeout(this.cancel)
-
     const next = nextProps.toTransition
     const previous = this.state.next
 
     if (!this._equal(previous, next)) {
-      this.setState({ next, previous, transition: true, transitionIndirect: false, indirectNext: null })
+      this.setState({ next, previous, transition: true })
 
+      clearTimeout(this.cancel)
       this.cancel = setTimeout(this.fadeOff, this._delay())
     } else {
       this.setState({ next })
