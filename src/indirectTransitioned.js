@@ -35,8 +35,6 @@ class IndirectTransitioned extends Transitioned {
   }
 
   componentWillReceiveProps (nextProps) {
-    clearTimeout(this.cancel)
-
     const next = nextProps.toTransition
     const previous = this.state.next
 
@@ -46,10 +44,14 @@ class IndirectTransitioned extends Transitioned {
       } else {
         this.setState({ next: null, previous, transition: true, transitionIndirect: true, indirectNext: next })
       }
-
+      clearTimeout(this.cancel)
       this.cancel = setTimeout(this.fadeOff, this._delay())
     } else {
-      this.setState({ next })
+      if (this.state.transitionIndirect) {
+        this.setState({ indirectNext: next })
+      } else {
+        this.setState({ next })
+      }
     }
   }
 

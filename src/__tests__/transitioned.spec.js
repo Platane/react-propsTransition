@@ -1,3 +1,4 @@
+/* global jest */
 import React from 'react'
 import {Transition} from '../index'
 import renderer from 'react-test-renderer'
@@ -115,6 +116,28 @@ describe('transitioned component', () => {
       jest.runOnlyPendingTimers()
       tree = component.toJSON()
       expect(tree.children[0]).toEqual('b is B1; a is A3')
+    })
+  })
+  describe('set props marked as to transition, set again to the same value during the transition delay', () => {
+    it('should render with transition', () => {
+      jest.useFakeTimers()
+
+      const component = renderer.create(<Component a={'A1'} b={'B1'} />)
+      let tree = component.toJSON()
+
+      // set a
+      tree.props.setA('A2')
+      tree = component.toJSON()
+      expect(tree.children[0]).toEqual('b is B1; a transition from A1 to A2')
+
+      tree.props.setA('A2')
+      tree = component.toJSON()
+      expect(tree.children[0]).toEqual('b is B1; a transition from A1 to A2')
+
+      // after a delay
+      jest.runOnlyPendingTimers()
+      tree = component.toJSON()
+      expect(tree.children[0]).toEqual('b is B1; a is A2')
     })
   })
 })
