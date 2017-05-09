@@ -1,4 +1,5 @@
 import React from 'react'
+import {PropTypes} from 'prop-types'
 
 /**
  * Transitioned,
@@ -35,7 +36,6 @@ import React from 'react'
  */
 
 class Transitioned extends React.Component {
-
   constructor (props) {
     super(props)
 
@@ -80,11 +80,9 @@ class Transitioned extends React.Component {
 
   render () {
     const renderedChildren = this.props.children(this.state)
-    return renderedChildren && React.Children.only(renderedChildren) || null
+    return (renderedChildren && React.Children.only(renderedChildren)) || null
   }
 }
-
-const {PropTypes} = React
 
 Transitioned.propTypes = {
   toTransition: PropTypes.any,

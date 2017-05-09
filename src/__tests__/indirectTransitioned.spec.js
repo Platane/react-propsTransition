@@ -12,7 +12,6 @@ const DumbComponent = props =>
   </IndirectTransition>
 
 class Component extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = { a: props.a, b: props.b }

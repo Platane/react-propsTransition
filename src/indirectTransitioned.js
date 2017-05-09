@@ -21,7 +21,6 @@
 import Transitioned from './transitioned'
 
 class IndirectTransitioned extends Transitioned {
-
   fadeOff () {
     clearTimeout(this.cancel)
 
@@ -54,7 +53,6 @@ class IndirectTransitioned extends Transitioned {
       }
     }
   }
-
 }
 
 IndirectTransitioned.propTypes = {
