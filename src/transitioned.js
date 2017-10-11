@@ -79,7 +79,8 @@ class Transitioned extends React.Component {
   }
 
   render () {
-    const renderedChildren = React.Children.only(this.props.children)(this.state)
+    const renderChildren = this.props.children[0] || this.props.children
+    const renderedChildren = renderChildren(this.state)
     return (renderedChildren && React.Children.only(renderedChildren)) || null
   }
 }
